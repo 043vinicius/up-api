@@ -78,6 +78,7 @@ router.get("/hospital", HospitalController.index);
  *               properties:
  *                 status:
  *                   type: boolean
+ *                   example: true
  *                 hospital:
  *                   type: object
  *                   properties:
@@ -91,6 +92,9 @@ router.get("/hospital", HospitalController.index);
  *                       type: string
  *                     cnpj:
  *                       type: string
+ *                 message:
+ *                   type: string
+ *                   example: "Hospital registrado com sucesso!"
  */
 router.post("/hospital", HospitalController.create);
 
@@ -137,6 +141,7 @@ router.post("/hospital", HospitalController.create);
  *               properties:
  *                 status:
  *                   type: boolean
+ *                   example: true
  *                 hospital:
  *                   type: object
  *                   properties:
@@ -150,6 +155,9 @@ router.post("/hospital", HospitalController.create);
  *                       type: string
  *                     cnpj:
  *                       type: string
+ *                 message:
+ *                   type: string
+ *                   example: "Hospital atualizado com sucesso!"
  */
 router.put("/hospital/:id", HospitalController.update);
 
@@ -159,7 +167,7 @@ router.put("/hospital/:id", HospitalController.update);
  *   delete:
  *     tags:
  *       - Hospital
- *     description: "Remove um hospital específico do sistema."
+ *     description: "Deleta um hospital específico do sistema."
  *     parameters:
  *       - name: id
  *         in: path
@@ -177,6 +185,9 @@ router.put("/hospital/:id", HospitalController.update);
  *               properties:
  *                 status:
  *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                   example: "Hospital deletado com sucesso!"
  */
 router.delete("/hospital/:id", HospitalController.delete);
 

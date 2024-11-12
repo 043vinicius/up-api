@@ -11,9 +11,9 @@ class HospitalController {
      */
     async index(req, res) {
         const hospital = await Hospital.findAll();
-        res.json({
+        res.status(200).json({
             status: true,
-            hospital
+            hospital,
         });
     }
 
@@ -114,7 +114,7 @@ class HospitalController {
 
             res.status(200).json({
                 status: true,
-                message: "Hospital excluído com sucesso!"
+                message: "Hospital deletado com sucesso!"
             });
         } catch (error) {
             console.log("Erro ao excluir o hospital:", error);

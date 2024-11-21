@@ -32,7 +32,7 @@ class HospitalController {
         try {
             const emailExists = await Hospital.findEmail(email);
             if (emailExists) {
-                return res.status(406).json({ err: "O e-mail já está cadastrado!" });
+                return res.status(409).json({ err: "O e-mail já está cadastrado!" });
             }
 
             await Hospital.new(nome, endereco, telefone, email, cnpj, senha);

@@ -2,8 +2,15 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const swaggerUi = require("swagger-ui-express");
 const swaggerJsdoc = require("swagger-jsdoc");
+const cors = require('cors');
 const app = express();
 const router = require("./routes/Routes");
+const port = 3000
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type'],
+}));
 
 // Configuração do Swagger
 const options = {
@@ -27,8 +34,8 @@ app.use(bodyParser.json());
 
 app.use("/", router);
 
-app.listen(3000, () => {
-    console.log("Servidor rodando");
+app.listen(port, () => {
+    console.log("Servidor rodando na porta:", port);
 });
 
 module.exports = app;

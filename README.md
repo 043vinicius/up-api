@@ -31,15 +31,35 @@ Para configurar o projeto localmente, siga as etapas abaixo.
 
 npm install
 ├── bcrypt@5.0.0
+
+
 ├── body-parser@1.20.3
+
+
 ├── express@4.17.1
+
+
 ├── jest@29.7.0
+
+
 ├── jsonwebtoken@8.5.1
+
+
 ├── knex@0.21.2
+
+
 ├── mysql2@2.1.0
+
+
 ├── nodemon@3.1.7
+
+
 ├── supertest@7.0.0
+
+
 ├── swagger-jsdoc@6.2.8
+
+
 └── swagger-ui-express@5.0.1
 
  3. Inicie o servidor:

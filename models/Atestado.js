@@ -5,7 +5,20 @@ class Atestado {
 
     async findAll() {
         try {
-            const result = await knex.select(["id", "data", "Medico_id", "Paciente_id", "Cids_id", "descricao"]).table("atestado");
+            const result = await knex
+                .select([
+                    "atestado.id",
+                    "atestado.data",
+                    "atestado.descricao",
+                    "medico.nome as medico_nome",
+                    "paciente.nome as paciente_nome",
+                    "cids.nome as cid_nome"
+                ])
+                .from("atestado")
+                .innerJoin("medico", "atestado.Medico_id", "medico.id")
+                .innerJoin("paciente", "atestado.Paciente_id", "paciente.id")
+                .innerJoin("cids", "atestado.Cids_id", "cids.id");
+
             return result;
         } catch (err) {
             console.log(err);

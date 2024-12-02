@@ -1,5 +1,4 @@
 const knex = require("../database/connection");
-const bcrypt = require("bcrypt");
 
 class Hospital {
 

@@ -27,7 +27,7 @@ const options = {
 
 const swaggerSpec = swaggerJsdoc(options);
 
-app.use("/documention", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use("/Documentation", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

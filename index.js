@@ -34,6 +34,11 @@ app.use(bodyParser.json());
 
 app.use("/", router);
 
+app.use((req, res, next) => {
+    console.log("Nova requisição realizada -> ", req.method, req.url);
+    next();
+});
+
 app.listen(port, () => {
     console.log("Servidor rodando na porta:", port);
 });

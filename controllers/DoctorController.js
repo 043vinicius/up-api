@@ -20,9 +20,9 @@ class DoctorController {
      * @return {Object} 
      */
     async create(req, res) {
-        const { nome, crm, telefone, email, especialidade } = req.body;
+        const { nomeCompleto, crm, telefone, email, especialidade } = req.body;
 
-        if (!email || !nome || !crm || !telefone || !especialidade) {
+        if (!email || !nomeCompleto || !crm || !telefone || !especialidade) {
             return res.status(400).json({ err: "Todos os campos são obrigatórios!" });
         }
 
@@ -32,7 +32,7 @@ class DoctorController {
                 return res.status(409).json({ err: "O e-mail já está cadastrado!" });
             }
 
-            await Doctor.new(nome, crm, telefone, email, especialidade);
+            await Doctor.new(nomeCompleto, crm, telefone, email, especialidade);
 
             res.status(200).json({
                 status: true,
@@ -58,9 +58,9 @@ class DoctorController {
      */
     async update(req, res) {
         const { id } = req.params;
-        const { nome, crm, telefone, email, especialidade } = req.body;
+        const { nomeCompleto, crm, telefone, email, especialidade } = req.body;
 
-        if (!nome && !crm && !telefone && !email && !especialidade) {
+        if (!nomeCompleto && !crm && !telefone && !email && !especialidade) {
             return res.status(400).json({ err: "Pelo menos um campo deve ser fornecido para atualização!" });
         }
 
@@ -71,7 +71,7 @@ class DoctorController {
             }
 
             const updatedData = {};
-            if (nome) updatedData.nome = nome;
+            if (nomeCompleto) updatedData.nomeCompleto = nomeCompleto;
             if (crm) updatedData.crm = crm;
             if (telefone) updatedData.telefone = telefone;
             if (email) updatedData.email = email;

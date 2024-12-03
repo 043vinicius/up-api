@@ -557,6 +557,8 @@ router.put("/paciente/:id", PacienteController.update);
  */
 router.delete("/paciente/:id", PacienteController.delete);
 
+router.get("/doctor", DoctorController.index);
+
 /**
  * @openapi
  * /doctor:

@@ -4,7 +4,7 @@ class Doctor {
 
     async findAll() {
         try {
-            const result = await knex.select(["id", "nomeCompleto", "crm", "telefone", "email", "especialidade"]).table("Doctor");
+            const result = await knex.select(["id", "nomeCompleto", "crm", "especialidade"]).table("medico");
             return result;
         } catch (err) {
             console.log(err);
@@ -15,25 +15,25 @@ class Doctor {
 
     async findById(id) {
         try {
-            return await knex("Doctor").where({ id }).first();
+            return await knex("medico").where({ id }).first();
         } catch (err) {
             console.log(err);
             return undefined;
         }
     }
 
-    async new(nomeCompleto, crm, telefone, email, especialidade) {
+    async new(nomeCompleto, crm, especialidade) {
         try {
-            return await knex('Doctor').insert({ nomeCompleto, crm, telefone, email, especialidade });
+            return await knex('medico').insert({ nomeCompleto, crm, especialidade });
         } catch (err) {
             console.log("Erro ao inserir no banco:", err);
         }
     }
 
-    async update(id, { nomeCompleto, crm, telefone, email, especialidade }) {
+    async update(id, { nomeCompleto, crm, especialidade }) {
         try {
-            const dataToUpdate = { nomeCompleto, crm, telefone, email, especialidade };
-            await knex("Doctor").where({ id }).update(dataToUpdate);
+            const dataToUpdate = { nomeCompleto, crm, especialidade };
+            await knex("medico").where({ id }).update(dataToUpdate);
             return true;
         } catch (err) {
             console.error("Erro ao atualizar doctor:", err);
@@ -43,27 +43,11 @@ class Doctor {
 
     async delete(id) {
         try {
-            const result = await knex("Doctor").where({ id }).del();
+            const result = await knex("medico").where({ id }).del();
             return result;
         } catch (err) {
             console.log(err);
             return undefined;
-        }
-    }
-
-    async findEmail(email) {
-        try {
-            const result = await knex.select("*").from("Doctor").where({ email: email });
-
-            if (result.length > 0) {
-                return true;
-            } else {
-                return false;
-            }
-
-        } catch (err) {
-            console.log(err);
-            return false;
         }
     }
 

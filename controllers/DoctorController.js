@@ -20,27 +20,21 @@ class DoctorController {
      * @return {Object} 
      */
     async create(req, res) {
-        const { nomeCompleto, crm, telefone, email, especialidade } = req.body;
+        const { nomeCompleto, crm, especialidade } = req.body;
 
-        if (!email || !nomeCompleto || !crm || !telefone || !especialidade) {
+        if (!nomeCompleto || !crm || !especialidade) {
             return res.status(400).json({ err: "Todos os campos são obrigatórios!" });
         }
 
         try {
-            const emailExists = await Doctor.findEmail(email);  
-            if (emailExists) {
-                return res.status(409).json({ err: "O e-mail já está cadastrado!" });
-            }
 
-            await Doctor.new(nomeCompleto, crm, telefone, email, especialidade);
+            await Doctor.new(nomeCompleto, crm, especialidade);
 
             res.status(200).json({
                 status: true,
                 doctor: {
                     nomeCompleto,
                     crm,
-                    telefone,
-                    email,
                     especialidade,
                 },
                 message: "Doctor registrado com sucesso!"
@@ -58,9 +52,9 @@ class DoctorController {
      */
     async update(req, res) {
         const { id } = req.params;
-        const { nomeCompleto, crm, telefone, email, especialidade } = req.body;
+        const { nomeCompleto, crm, especialidade } = req.body;
 
-        if (!nomeCompleto && !crm && !telefone && !email && !especialidade) {
+        if (!nomeCompleto && !crm && !especialidade) {
             return res.status(400).json({ err: "Pelo menos um campo deve ser fornecido para atualização!" });
         }
 
@@ -73,8 +67,6 @@ class DoctorController {
             const updatedData = {};
             if (nomeCompleto) updatedData.nomeCompleto = nomeCompleto;
             if (crm) updatedData.crm = crm;
-            if (telefone) updatedData.telefone = telefone;
-            if (email) updatedData.email = email;
             if (especialidade) updatedData.especialidade = especialidade;
 
             await Doctor.update(id, updatedData);

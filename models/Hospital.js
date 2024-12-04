@@ -24,8 +24,8 @@ class Hospital {
 
     async new(nome, endereco, telefone, email, cnpj, senha) {
         try {
-            const hash = await bcrypt.hash(senha, 10);
-            return await knex('Hospital').insert({ nome, endereco, telefone, email, cnpj, senha: hash });
+            // const hash = await bcrypt.hash(senha, 10);
+            return await knex('Hospital').insert({ nome, endereco, telefone, email, cnpj, senha });
         } catch (err) {
             console.log("Erro ao inserir no banco:", err);
         }
@@ -35,9 +35,9 @@ class Hospital {
         try {
             const dataToUpdate = { nome, endereco, telefone, email, cnpj };
 
-            if (senha) {
-                dataToUpdate.senha = await bcrypt.hash(senha, 10);
-            }
+            // if (senha) {
+            //     dataToUpdate.senha = await bcrypt.hash(senha, 10);
+            // }
 
             await knex("Hospital").where({ id }).update(dataToUpdate);
             return true;

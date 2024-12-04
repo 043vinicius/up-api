@@ -7,6 +7,7 @@ const CidsController = require("../controllers/CidsController");
 const DoctorController = require("../controllers/DoctorController");
 const PacienteController = require("../controllers/PacienteController");
 const AtestadoController = require("../controllers/AtestadoController");
+const ConsultaController = require("../controllers/ConsultarController");
 const AdminAuth = require("../middleware/AdminAuth");
 
 router.get('/', HomeController.index);
@@ -973,5 +974,275 @@ router.put("/doctor/:id", DoctorController.update);
  *                     example: "Erro interno ao excluir o doctor"
  */
 router.delete("/doctor/:id", DoctorController.delete);
+
+/**
+ * @swagger
+ * paths:
+ *   /consulta:
+ *     get:
+ *       tags:
+ *         - consulta
+ *       description: "Retorna uma lista de todas as consultas registradas."
+ *       responses:
+ *         200:
+ *           description: "Lista de consultas retornada com sucesso"
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: object
+ *                 properties:
+ *                   status:
+ *                     type: boolean
+ *                     example: true
+ *                   consultas:
+ *                     type: array
+ *                     items:
+ *                       type: object
+ *                       properties:
+ *                         id:
+ *                           type: integer
+ *                           example: 1
+ *                         data:
+ *                           type: string
+ *                           example: "2024-12-04T10:30:00.000Z"
+ *                         medico_nome:
+ *                           type: string
+ *                           example: "Dr. João Silva"
+ *                         paciente_nome:
+ *                           type: string
+ *                           example: "Maria Oliveira"
+ *                         descricao:
+ *                           type: string
+ *                           example: "Consulta de retorno para avaliação."
+ */
+router.get("/consulta", ConsultaController.index);
+
+/**
+ * @swagger
+ * paths:
+ *   /consulta:
+ *     post:
+ *       tags:
+ *         - consulta
+ *       description: "Cria um novo registro de consulta com os dados fornecidos."
+ *       requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: string
+ *                   example: "2024-12-04T10:30:00.000Z"
+ *                 Medico_id:
+ *                   type: integer
+ *                   example: 1
+ *                 Paciente_id:
+ *                   type: integer
+ *                   example: 2
+ *                 descricao:
+ *                   type: string
+ *                   example: "Consulta inicial para diagnóstico."
+ *       responses:
+ *         201:
+ *           description: "Consulta criada com sucesso"
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: object
+ *                 properties:
+ *                   status:
+ *                     type: boolean
+ *                     example: true
+ *                   consulta:
+ *                     type: object
+ *                     properties:
+ *                       data:
+ *                         type: string
+ *                         example: "2024-12-04T10:30:00.000Z"
+ *                       Medico_id:
+ *                         type: integer
+ *                         example: 1
+ *                       Paciente_id:
+ *                         type: integer
+ *                         example: 2
+ *                       descricao:
+ *                         type: string
+ *                         example: "Consulta inicial para diagnóstico."
+ *                   message:
+ *                     type: string
+ *                     example: "Consulta registrada com sucesso!"
+ *         400:
+ *           description: "Erro de validação de entrada"
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: object
+ *                 properties:
+ *                   err:
+ *                     type: string
+ *                     example: "Todos os campos são obrigatórios!"
+ *         500:
+ *           description: "Erro interno do servidor"
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: object
+ *                 properties:
+ *                   err:
+ *                     type: string
+ *                     example: "Erro interno ao criar a consulta"
+ */
+router.post("/consulta", ConsultaController.create);
+
+/**
+ * @swagger
+ * paths:
+ *   /consulta/{id}:
+ *     put:
+ *       tags:
+ *         - consulta
+ *       description: "Atualiza as informações de uma consulta específica pelo ID."
+ *       parameters:
+ *         - name: id
+ *           in: path
+ *           required: true
+ *           description: ID da consulta a ser atualizada
+ *           schema:
+ *             type: integer
+ *       requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: string
+ *                   example: "2024-12-05T15:00:00.000Z"
+ *                 Medico_id:
+ *                   type: integer
+ *                   example: 3
+ *                 Paciente_id:
+ *                   type: integer
+ *                   example: 4
+ *                 descricao:
+ *                   type: string
+ *                   example: "Consulta de acompanhamento."
+ *       responses:
+ *         200:
+ *           description: "Consulta atualizada com sucesso"
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: object
+ *                 properties:
+ *                   status:
+ *                     type: boolean
+ *                     example: true
+ *                   consulta:
+ *                     type: object
+ *                     properties:
+ *                       data:
+ *                         type: string
+ *                         example: "2024-12-05T15:00:00.000Z"
+ *                       Medico_id:
+ *                         type: integer
+ *                         example: 3
+ *                       Paciente_id:
+ *                         type: integer
+ *                         example: 4
+ *                       descricao:
+ *                         type: string
+ *                         example: "Consulta de acompanhamento."
+ *                   message:
+ *                     type: string
+ *                     example: "Consulta atualizada com sucesso!"
+ *         400:
+ *           description: "Erro de validação de entrada"
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: object
+ *                 properties:
+ *                   err:
+ *                     type: string
+ *                     example: "Pelo menos um campo deve ser fornecido para atualização!"
+ *         404:
+ *           description: "Consulta não encontrada"
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: object
+ *                 properties:
+ *                   err:
+ *                     type: string
+ *                     example: "Consulta não encontrada!"
+ *         500:
+ *           description: "Erro interno do servidor"
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: object
+ *                 properties:
+ *                   err:
+ *                     type: string
+ *                     example: "Erro interno ao atualizar a consulta"
+ */
+router.put("/consulta/:id", ConsultaController.update);
+
+/**
+ * @swagger
+ * paths:
+ *   /consulta/{id}:
+ *     delete:
+ *       tags:
+ *         - consulta
+ *       description: "Deleta uma consulta específica pelo ID."
+ *       parameters:
+ *         - name: id
+ *           in: path
+ *           required: true
+ *           description: ID da consulta a ser deletada
+ *           schema:
+ *             type: integer
+ *       responses:
+ *         200:
+ *           description: "Consulta deletada com sucesso"
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: object
+ *                 properties:
+ *                   status:
+ *                     type: boolean
+ *                     example: true
+ *                   message:
+ *                     type: string
+ *                     example: "Consulta deletada com sucesso!"
+ *         404:
+ *           description: "Consulta não encontrada"
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: object
+ *                 properties:
+ *                   err:
+ *                     type: string
+ *                     example: "Consulta não encontrada!"
+ *         500:
+ *           description: "Erro interno do servidor"
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: object
+ *                 properties:
+ *                   err:
+ *                     type: string
+ *                     example: "Erro interno ao excluir a consulta"
+ */
+router.delete("/consulta/:id", ConsultaController.delete);
+
 
 module.exports = router;

@@ -3,6 +3,7 @@ const router = express.Router();
 const HomeController = require("../controllers/HomeController");
 const UserController = require("../controllers/UserController");
 const HospitalController = require("../controllers/HospitalController");
+const CidsController = require("../controllers/CidsController");
 const PacienteController = require("../controllers/PacienteController");
 const AtestadoController = require("../controllers/AtestadoController");
 const AdminAuth = require("../middleware/AdminAuth");
@@ -555,5 +556,167 @@ router.put("/paciente/:id", PacienteController.update);
  *                   example: "Paciente deletado com sucesso!"
  */
 router.delete("/paciente/:id", PacienteController.delete);
+
+/**
+ * @openapi
+ * /cids:
+ *   get:
+ *     tags:
+ *       - Cids
+ *     description: "Lista todos os registros de Cids no sistema."
+ *     responses:
+ *       200:
+ *         description: "Lista de Cids"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                   nome:
+ *                     type: string
+ *                   cod:
+ *                     type: string
+ *                   descricao:
+ *                     type: string
+ */
+router.get("/cids", CidsController.index);
+
+/**
+ * @openapi
+ * /cids:
+ *   post:
+ *     tags:
+ *       - Cids
+ *     description: "Cria um novo registro de Cids no sistema."
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nome:
+ *                 type: string
+ *               cod:
+ *                 type: string
+ *               descricao:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: "Cid criado com sucesso"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: boolean
+ *                   example: true
+ *                 cid:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                     nome:
+ *                       type: string
+ *                     cod:
+ *                       type: string
+ *                     descricao:
+ *                       type: string
+ *                 message:
+ *                   type: string
+ *                   example: "Cid registrado com sucesso!"
+ */
+router.post("/cids", CidsController.create);
+
+/**
+ * @openapi
+ * /cids/{id}:
+ *   put:
+ *     tags:
+ *       - Cids
+ *     description: "Atualiza as informações de um Cid específico."
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         description: "ID do Cid a ser atualizado"
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nome:
+ *                 type: string
+ *               cod:
+ *                 type: string
+ *               descricao:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: "Cid atualizado com sucesso"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: boolean
+ *                   example: true
+ *                 cid:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                     nome:
+ *                       type: string
+ *                     cod:
+ *                       type: string
+ *                     descricao:
+ *                       type: string
+ *                 message:
+ *                   type: string
+ *                   example: "Cid atualizado com sucesso!"
+ */
+router.put("/cids/:id", CidsController.update);
+
+/**
+ * @openapi
+ * /cids/{id}:
+ *   delete:
+ *     tags:
+ *       - Cids
+ *     description: "Deleta um Cid específico do sistema."
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         description: "ID do Cid a ser deletado"
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: "Cid deletado com sucesso"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Cid deletado com sucesso!"
+ */
+router.delete("/cids/:id", CidsController.delete);
 
 module.exports = router;

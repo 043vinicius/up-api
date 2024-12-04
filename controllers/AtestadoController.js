@@ -95,8 +95,8 @@ class AtestadoController {
         const { id } = req.params;
 
         try {
-            const Atestado = await Atestado.findById(id);
-            if (!Atestado) {
+            const atestado = await Atestado.findById(id);
+            if (!atestado) {
                 return res.status(404).json({ err: "Atestado não encontrado!" });
             }
 
@@ -107,8 +107,8 @@ class AtestadoController {
                 message: "Atestado deletado com sucesso!"
             });
         } catch (error) {
-            console.log("Erro ao excluir o Atestado:", error);
-            res.status(500).json({ err: "Erro interno ao excluir o Atestado" });
+            console.log("Erro ao excluir o atestado:", error);
+            res.status(500).json({ err: "Erro interno ao excluir o atestado" });
         }
     }
 }

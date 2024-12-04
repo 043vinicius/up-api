@@ -10,7 +10,7 @@ class Atestado {
                     "atestado.id",
                     "atestado.data",
                     "atestado.descricao",
-                    "medico.nomeCompleto as medico_nome",
+                    "medico.nome as medico_nome",
                     "paciente.nome as paciente_nome",
                     "cids.nome as cid_nome"
                 ])

@@ -12,7 +12,7 @@ class Atestado {
                     "atestado.descricao",
                     "medico.nome as medico_nome",
                     "paciente.nome as paciente_nome",
-                    "cids.nome as cid_nome"
+                    "cids.descricao as cid_nome"
                 ])
                 .from("atestado")
                 .innerJoin("medico", "atestado.Medico_id", "medico.id")

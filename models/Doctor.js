@@ -95,6 +95,8 @@ class Doctor {
      */
     async delete(id) {
         try {
+            await knex("consulta").where({ medico_id: id }).del();
+            await knex("atestado").where({ medico_id: id }).del();
             const deletedRows = await knex("medico").where({ id }).del();
             return deletedRows > 0;
         } catch (error) {

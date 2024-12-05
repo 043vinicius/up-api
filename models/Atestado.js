@@ -46,7 +46,8 @@ class Atestado {
 
     async update(id, { data, Medico_id, Paciente_id, Cids_id, descricao }) {
         try {
-            const dataToUpdate = { data, Medico_id, Paciente_id, Cids_id, descricao };
+            const dataFormatted = data ? new Date(data) : undefined;
+            const dataToUpdate = { data: dataFormatted, Medico_id, Paciente_id, Cids_id, descricao };
             await knex("atestado").where({ id }).update(dataToUpdate);
             return true;
         } catch (err) {

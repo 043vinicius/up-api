@@ -44,6 +44,8 @@ class Paciente {
 
     async delete(id) {
         try {
+            await knex("consulta").where({ paciente_id: id }).del();
+            await knex("atestado").where({ paciente_id: id }).del();  
             const result = await knex("paciente").where({ id }).del();
             return result;
         } catch (err) {

@@ -75,10 +75,7 @@ class PacienteController {
             if (endereco) updatedData.endereco = endereco;
             if (telefone) updatedData.telefone = telefone;
             if (email) updatedData.email = email;
-            if (cnpj) updatedData.cpf = cpf;
-            if (senha) {
-                updatedData.senha = await bcrypt.hash(senha, 10);
-            }
+            if (cpf) updatedData.cpf = cpf;
 
             await Paciente.update(id, updatedData);
 
